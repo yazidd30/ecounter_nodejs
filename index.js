@@ -48,24 +48,16 @@ app.get('/', function(req, res){
 
 app.get('/ecounter_nodejs', expressku.home);
 app.get('/ecounter_nodejs/products_detail/:id_product', expressku.products_detail);
-// app.get('/express', expressku.home);
-// app.get('/express/news', expressku.news);
-// app.get('/express/about', expressku.about);
-// app.get('/express/contact', expressku.contact);
-// app.get('/express/gallery', expressku.gallery);
-// app.get('/express/news_detail/:id_news', expressku.news_detail);
-// app.get('/express/search_news', expressku.searchnews);
+
 app.get('/ecounter_nodejs/admin', adminku.login), adminku.login;;
 app.get('/ecounter_nodejs/admin/login', adminku.login);
 app.get('/ecounter_nodejs/admin/home', adminku.home);
-app.get('/ecounter_nodejs/admin/add_news', adminku.add_news);
 app.get('/ecounter_nodejs/admin/edit_product/:id_product', adminku.edit_product);
-app.get('/ecounter_nodejs/admin/delete_news/:id_news', adminku.delete_news);
+app.get('/ecounter_nodejs/admin/delete_product/:id_product', adminku.delete_product);
 app.get('/ecounter_nodejs/admin/logout', adminku.logout);
 
 app.post('/ecounter_nodejs/admin/login', adminku.login); 
-app.post('/ecounter_nodejs/admin/add_news', adminku.prosess_add_news); 
-app.post('/ecounter_nodejs/admin/edit_news/:id_news', adminku.prosess_edit_news); 
+app.post('/ecounter_nodejs/admin/edit_product/:id_product', adminku.prosess_edit_product); 
 
 
 app.listen(app.get('port'), function(){

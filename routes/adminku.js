@@ -66,60 +66,6 @@ exports.home = function(req, res){
     });
 }
 
-exports.add_news = function(req, res){
-    var admin = req.session.admin;
-    var adminId = req.session.adminId;
-    console.log('id_admin' + adminId);
-    
-    if(adminId == null){
-        res.redirect('/ecounter_nodejs/admin/login');
-        return;
-    }
-
-    res.render('./admin/home', {
-        pathname : 'add_news'
-    });
-}
-
-exports.prosess_add_news = function(req, res){
-    var storage = multer.diskStorage({
-        destination : './public/news_images',
-        filename : function(req, file, callback){
-            callback(null, file.originalname);
-        }
-    });
-
-    var upload = multer({storage : storage }).single('image');
-    var date = new Date(Date.now());
-
-    upload(req, res, function(err){
-        if (err){
-            return res.end('Error Uploading Image!');
-        }
-        console.log(req.file);
-        console.log(req.body);
-
-        req.getConnection(function(err, connect){
-            // Tangkap nilai atau value dari body (atribut name)
-            var post = {
-                title : req.body.title,
-                description : req.body.description,
-                images : req.file.filename,
-                createdate : date
-            }
-            console.log(post); // Berfungsi untuk menampilkan data post di console
-
-            var sql = "INSERT INTO product SET ?";
-            var query = connect.query(sql, post, function(err, results){
-                if(err){
-                    console.log('Error input news : %', err);
-                }
-                req.flash('info', 'Sukses tambah data! Data has been Create! ');
-                res.redirect('/ecounter_nodejs/admin/home');
-            });
-        });
-    });
-}
 
 exports.edit_product = function(req, res){
     var admin = req.session.admin;
@@ -149,8 +95,8 @@ exports.edit_product = function(req, res){
     });
 }
 
-exports.prosess_edit_news = function(req, res){
-    var id_news = req.params.id_news;
+exports.prosess_edit_product = function(req, res){
+    var id_product = req.params.id_product;
     var storage = multer.diskStorage({
         destination: './public/news_images',
         filename: function(req, file, callback){
@@ -175,13 +121,13 @@ exports.prosess_edit_news = function(req, res){
         
         req.getConnection(function(err, connect){
             var post = {
-                title : req.body.title,
-                description : req.body.description,
-                images : image,
+                nama_produk : req.body.nama_produk,
+                des_product : req.body.des_product,
+                gambar_produk : image,
                 createdate : date
             }
             var sql = "UPDATE product SET ? WHERE  id_product=?";
-            var query = connect.query(sql, [post, id_news], function(err, results){
+            var query = connect.query(sql, [post, id_product], function(err, results){
                 if (err){
                     console.log('Error Edit news! %s', err);
                 }
@@ -192,14 +138,14 @@ exports.prosess_edit_news = function(req, res){
     });
 }
 
-exports.delete_news = function(req, res){
-    var id_news = req.params.id_news;
+exports.delete_product = function(req, res){
+    var id_product = req.params.id_product;
 
     req.getConnection(function(err, connect){
         var sql = "DELETE FROM product WHERE id_product=?";
-        var query = connect.query(sql, id_news , function(err, results){
+        var query = connect.query(sql, id_product , function(err, results){
             if (err){
-                console.log('Error delete news!', err);
+                console.log('Error delete Product!', err);
             }
             req.flash('info', 'Sukses Delete data! Data has been Delete! ');
             res.redirect('/ecounter_nodejs/admin/home');
