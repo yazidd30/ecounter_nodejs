@@ -1,0 +1,19 @@
+{
+  "name": "ecounter_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yazidd30/ecounter_nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yazidd30/ecounter_nodejs/issues"
+  },
+  "homepage": "https://github.com/yazidd30/ecounter_nodejs#readme"
+}
